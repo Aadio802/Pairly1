@@ -19,7 +19,7 @@ async def init_database():
     """Initialize database schema"""
     schema_path = Path(__file__).parent / "schema.sql"
     
-    async with await get_connection() as conn:
+    async with get_connection() as conn:
         with open(schema_path, 'r') as f:
             schema = f.read()
         
