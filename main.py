@@ -20,25 +20,22 @@ logger = logging.getLogger(__name__)
 async def main():
     """Initialize and start bot"""
     logger.info("Starting Pairly bot...")
-    
+
     # Initialize database with WAL mode
     await init_database()
     logger.info("Database initialized with WAL mode")
-    
+
     # Initialize bot
     bot = Bot(token=settings.BOT_TOKEN)
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
-    
+
     # Register all handlers
     register_all_handlers(dp)
     logger.info("Handlers registered")
-    
-    # Start polling
-    try:
-        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
-    finally:
-        await bot.session.close()
+
+    # 🔴 THIS LINE WAS MISSING
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
